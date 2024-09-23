@@ -1,22 +1,19 @@
 const mongoose = require('../db/connect.js');
 const { Schema } = mongoose;
 
-const ICastration = mongoose.model(
-  'ICastration',
-  new Schema({
-    idC: {
-      type: Number,
-    },
+const castrationSchema = new Schema(
+  {
+    idC: { type: Number },
     animal: [
       {
         species: { type: String, required: true },
         sexy: { type: String, required: true },
         name: { type: String, required: true },
         color: { type: String, required: true },
-        size: { type: String, required: true },
+        size: { type: Number, required: true },
         year: { type: String, required: true },
         chip: { type: String, required: true },
-        intercorrencia: { type: String, },
+        intercorrencia: { type: String },
         nis: { type: String, required: true },
         image: { type: Array, required: true },
       },
@@ -35,19 +32,20 @@ const ICastration = mongoose.model(
     bloco: { type: String },
     apto: { type: String },
   },
-    { timestamps: true }
-  )
+  { timestamps: true }
 );
 
-const ICastrationFilter = mongoose.model(
-  'ICastrationFilter',
-  new Schema({
-    filter:{
-      name_tutor: { type: String },
-      city: { type: String },
-      cpf: { type: String },
-      tutor: { type: String }
-    }
-  })
-);
+const ICastration = mongoose.model('ICastration', castrationSchema);
 
+const castrationFilterSchema = new Schema({
+  filter: {
+    name_tutor: { type: String },
+    city: { type: String },
+    cpf: { type: String },
+    tutor: { type: String },
+  },
+});
+
+const ICastrationFilter = mongoose.model('ICastrationFilter', castrationFilterSchema);
+
+module.exports = { ICastration, ICastrationFilter };

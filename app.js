@@ -16,6 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 
 //Routes
+app.use('/users', require('./src/routes/UserRoutes'));
 
 //Connect to MongoDB
 require('./src/db/connect.js');
