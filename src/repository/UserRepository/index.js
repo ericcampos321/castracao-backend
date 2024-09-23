@@ -33,6 +33,7 @@ class UserRepository {
 
       // Hash the password before saving the user
       user.password = this._hashPassword(user.password);
+      user.confirmpassword = this._hashPassword(user.confirmpassword);
 
       // Create the new user
       operationPromise = await UserSchema.create(user);
@@ -50,5 +51,9 @@ class UserRepository {
     }
   }
 }
+
+// Delete the user
+
+
 
 module.exports = new UserRepository();
