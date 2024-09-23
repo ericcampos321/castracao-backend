@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const UserSchema = require('../../models/User');
 
 class UserRepository {
-  
+
   // Private method to hash the password
   _hashPassword(password) {
     if (!password) {
@@ -15,8 +15,12 @@ class UserRepository {
   // Method to insert a user into the database
   async insertUserRepository(user) {
     try {
-      if (!user || !user.password) {
+      if (!user || !user.password || !user.confirmpassword) {
         return { msg: "Parâmetros de usuário ou senha estão indefinidos ou nulos", status: 0 };
+      }
+
+      if (user.password !== user.confirmpassword) {
+        return { msg: "Senha e confirma o senha não coincidem", status: 0 };
       }
 
       let operationPromise;
