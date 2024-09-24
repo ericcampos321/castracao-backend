@@ -1,5 +1,5 @@
-const IUser = require('./../../models/User.js');
-const UserService = require('../../services/UserService.js');
+const IUser = require('../../schemas/UserSchema.js');
+const UserService = require('../../services/UserService');
 
 class UserController {
   async createUser(req, res) {

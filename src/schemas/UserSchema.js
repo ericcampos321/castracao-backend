@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const { Schema } = mongoose;
+const { Schema, model } = mongoose;
+const mongooseSequence = require('mongoose-sequence')(mongoose);
 
 const userSchema = new Schema(
   {
@@ -8,12 +9,15 @@ const userSchema = new Schema(
     password: { type: String, required: true },
     confirmpassword: { type: String, required: true },
     image: { type: String },
-    permissions: { type: String },
+    permissions: {
+      type: mongoose.Types.ObjectId,
+      ref: 'Permissions'
+    },
   },
   {
     timestamps: true,
   }
 );
 
-const User = mongoose.model('User', userSchema);
-module.exports = User;
+userSchema.plugin(mongooseSequence, { inc_field: 'id' });
+module.exports = model('User', userSchema)

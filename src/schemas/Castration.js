@@ -1,5 +1,6 @@
 const mongoose = require('../db/connect.js');
-const { Schema } = mongoose;
+const { Schema, model } = mongoose;
+const mongooseSequence = require('mongoose-sequence')(mongoose);
 
 const castrationSchema = new Schema(
   {
@@ -35,17 +36,6 @@ const castrationSchema = new Schema(
   { timestamps: true }
 );
 
-const ICastration = mongoose.model('ICastration', castrationSchema);
-
-const castrationFilterSchema = new Schema({
-  filter: {
-    name_tutor: { type: String },
-    city: { type: String },
-    cpf: { type: String },
-    tutor: { type: String },
-  },
-});
-
-const ICastrationFilter = mongoose.model('ICastrationFilter', castrationFilterSchema);
-
-module.exports = { ICastration, ICastrationFilter };
+castrationSchema.plugin(mongooseSequence, { inc_field: 'idC' });
+const Castration = model('Castration', castrationSchema);
+module.exports = Castration;

@@ -1,18 +1,17 @@
 const bcrypt = require('bcrypt');
-const UserSchema = require('../../models/User');
+const UserSchema = require('../../schemas/UserSchema');
 
 class UserRepository {
-
-  // Private method to hash the password
+  // Método privado para hash da senha
   _hashPassword(password) {
     if (!password) {
-      throw new Error("Password is required for hashing");
+      throw new Error("Senha é necessária para realizar o hash");
     }
     const saltRounds = 7;
     return bcrypt.hashSync(password, saltRounds);
   }
 
-  // Method to insert a user into the database
+  // Método para inserir um usuário no banco de dados
   async insertUserRepository(user) {
     try {
       if (!user || !user.password || !user.confirmpassword) {
@@ -20,22 +19,22 @@ class UserRepository {
       }
 
       if (user.password !== user.confirmpassword) {
-        return { msg: "Senha e confirma o senha não coincidem", status: 0 };
+        return { msg: "As senhas informadas não coincidem", status: 0 };
       }
 
       let operationPromise;
 
-      // Check if there is already a user with the same email
+      // Verifica se já existe um usuário com o mesmo email
       operationPromise = await UserSchema.find({ email: user.email });
       if (operationPromise.length >= 1) {
         return { msg: "Já existe um usuário com esse email", status: 0 };
       }
 
-      // Hash the password before saving the user
+      // Faz o hash da senha antes de salvar o usuário
       user.password = this._hashPassword(user.password);
       user.confirmpassword = this._hashPassword(user.confirmpassword);
 
-      // Create the new user
+      // Cria o novo usuário
       operationPromise = await UserSchema.create(user);
       if (!operationPromise) {
         return { msg: "Erro ao criar usuário", status: 0 };
@@ -52,8 +51,9 @@ class UserRepository {
   }
 }
 
-// Delete the user
+  // Exclui o usuário
 
+  
 
 
 module.exports = new UserRepository();
