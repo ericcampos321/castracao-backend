@@ -1,4 +1,5 @@
 const LoginRepository = require("../../repository/LoginRepository");
+const IUser = require("../../models/interface/User");
 
 class LoginService {
   async loginService(user) {
@@ -14,9 +15,9 @@ class LoginService {
 
       return operationPromise;
     } catch (err) {
-      return { msg: err };
+      return { msg: err.message || "Erro inesperado", status: 0 };
     }
   }
 }
 
-module.exports = new LoginService();
+module.exports = LoginService;

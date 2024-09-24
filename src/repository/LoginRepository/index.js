@@ -1,6 +1,7 @@
+const IUser = require('../../models/interface/User');
 const UserSchema = require('../../schemas/UserSchema');
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 class LoginRepository {
   async login(user) {
@@ -24,7 +25,7 @@ class LoginRepository {
 
       // Caso a senha esteja correta
       else if (isValidPassword) {
-        const mySecret = process.env.MY_SECRET;
+        const mySecret = process.env.JWT_SECRET;
         const token = jwt.sign({ email: result.email }, mySecret, { expiresIn: '24h' });
 
         return {
@@ -33,7 +34,7 @@ class LoginRepository {
           idUser: result._id,
           token,
           auth: true,
-          permission: result.permissions.name_permission,
+          /*permission: result.permissions.name_permission,*/
         };
       }
     } catch (err) {
@@ -42,5 +43,5 @@ class LoginRepository {
   }
 }
 
-module.exports = new LoginRepository();
+module.exports = LoginRepository;
 

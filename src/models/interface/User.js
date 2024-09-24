@@ -6,4 +6,5 @@ const IUser = {
   image: String,
 };
 
-module.exports = IUser;
+module.exports = IUser
+
