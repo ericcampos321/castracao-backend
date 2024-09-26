@@ -27,7 +27,6 @@ class UserController {
     } catch (error) {
       res.status(500).json({ Error: error.message || 'Erro interno do servidor' });
     }
-  }
-};
+  }};
 
 module.exports = new UserController();

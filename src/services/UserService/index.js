@@ -14,11 +14,9 @@ class UserService {
   async updateUserService(id, user) {
     try {
       // Chama o repositório para atualizar o usuário
-      let operarionPrimise;
-      const userRepository = new UserRepository();
-      operationPrimise = await userRepository.updateUserRepository(id, user);
-      if (!operationPrimise) return { msg: 'Erro ao atualizar usuário', status: 0 };
-      return operationPrimise;
+      const operationPromise = await UserRepository.updateUserRepository(id, user);
+      if (!operationPromise) return { msg: 'Erro ao atualizar usuário', status: 0 };
+      return operationPromise;
     } catch (error) {
       return { msg: error.message || 'Erro ao atualizar usuário', status: 0 };
     }

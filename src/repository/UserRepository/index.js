@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
 const UserSchema = require('../../schemas/UserSchema');
 const IUser = require('../../models/interface/User');
 
@@ -54,6 +55,8 @@ class UserRepository {
   // Metodo para buscar um usuário no banco de dados
   async updateUserRepository(id, user) {
     try {
+      if (!mongoose.Types.ObjectId.isValid(id)) return { msg: "ID do usuário inválido", status: 0 }
+
       if (!id) return { msg: "ID do usuário nulo ou indefinido", status: 0 }
 
       let operationPromise;
@@ -71,29 +74,30 @@ class UserRepository {
 
           if (changePassword) {
             // Se for necessário trocar a senha, gera um hash criptografado da nova senha
-            const salt = 7
-            const password = bcrypt.hashSync(user.password, salt)
-            user.password = password
+            const salt = 7;
+            const password = bcrypt.hashSync(user.password, salt);
+            user.password = password;
           }
+
+          operationPromise = await UserSchema.findOneAndUpdate({ _id: id },
+            {
+              $set: {
+                email: user.email ? user.email : result.email,
+                name: user.name ? user.name : result.name,
+                password: user.password ? user.password : result.password,
+                image: user.image ? user.image : result.image,
+                permissions: user.permissions ? user.permissions : result.permissions,
+              },
+            },
+          );
+
+          if (!operationPromise)
+            return { msg: "Erro ao atualizar usuário", status: 0 }
+
+          operationPromise = await UserSchema.findOne({ _id: id });
+          if (!operationPromise)
+            return { msg: "Erro ao atualizar usuário", status: 0 }
         }
-
-        operationPromise = await UserSchema.findOneAndUpdate({ _id: id },
-          {
-            email: user.email ? user.email : result.email,
-            name: user.name ? user.name : result.name,
-            password: user.password ? user.password : result.password,
-            image: user.image ? user.image : result.image,
-            permissions: user.permissions ? user.permissions : result.permissions,
-
-          },
-        )
-
-        if (!operationPromise)
-          return { msg: "Erro ao atualizar usuário", status: 0 }
-
-        operationPromise = await UserSchema.findOne({ _id: id });
-        if (!operationPromise)
-          return { msg: "Erro ao atualizar usuário", status: 0 }
       }
       return {
         msg: "Usuário atualizado com sucesso",
@@ -105,10 +109,7 @@ class UserRepository {
       return { msg: error.message || error }
     }
   }
-
-}
-
-
+};
 
 
 
