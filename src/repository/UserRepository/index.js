@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const UserSchema = require('../../schemas/UserSchema');
+const IUser = require('../../models/interface/User');
 
 class UserRepository {
   // Método privado para hash da senha
@@ -49,11 +50,65 @@ class UserRepository {
       return { msg: err.message || err };
     }
   }
+
+  // Metodo para buscar um usuário no banco de dados
+  async updateUserRepository(id, user) {
+    try {
+      if (!id) return { msg: "ID do usuário nulo ou indefinido", status: 0 }
+
+      let operationPromise;
+      operationPromise = await UserSchema.findOne({ _id: id });
+      if (!operationPromise || operationPromise.length <= 0)
+        return { msg: "Usuário não encontrado", status: 0 }
+
+      const result = operationPromise ? operationPromise : null;
+
+      if (result) {
+        let changePassword = false;
+
+        if (user) {
+          if (user.password) changePassword = true;
+
+          if (changePassword) {
+            const salt = 7
+            const password = bcrypt.hashSync(user.password, salt)
+            user.password = password
+          }
+        }
+
+        operationPromise = await UserSchema.findOneAndUpdate({ _id: id },
+          {
+            email: user.email ? user.email : result.email,
+            name: user.name ? user.name : result.name,
+            password: user.password ? user.password : result.password,
+            image: user.image ? user.image : result.image,
+            permissions: user.permissions ? user.permissions : result.permissions,
+
+          },
+        )
+
+        if (!operationPromise)
+          return { msg: "Erro ao atualizar usuário", status: 0 }
+
+        operationPromise = await UserSchema.findOne({ _id: id });
+        if (!operationPromise)
+          return { msg: "Erro ao atualizar usuário", status: 0 }
+      }
+      return{
+        msg: "Usuário atualizado com sucesso",
+        status: 1,
+        data: operationPromise
+      }
+
+    } catch (error) {
+      return { msg: error.message || error }
+    }
+  }
+
 }
 
-  // Exclui o usuário
 
-  
+
 
 
 module.exports = new UserRepository();

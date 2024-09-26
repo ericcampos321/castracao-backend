@@ -10,6 +10,6 @@ class UserService {
       return { msg: error.message || 'Erro ao criar usuário', status: 0 };
     }
   }
-};
+}
 
 module.exports = UserService;
