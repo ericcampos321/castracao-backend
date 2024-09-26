@@ -70,6 +70,7 @@ class UserRepository {
           if (user.password) changePassword = true;
 
           if (changePassword) {
+            // Se for necessário trocar a senha, gera um hash criptografado da nova senha
             const salt = 7
             const password = bcrypt.hashSync(user.password, salt)
             user.password = password
@@ -94,7 +95,7 @@ class UserRepository {
         if (!operationPromise)
           return { msg: "Erro ao atualizar usuário", status: 0 }
       }
-      return{
+      return {
         msg: "Usuário atualizado com sucesso",
         status: 1,
         data: operationPromise

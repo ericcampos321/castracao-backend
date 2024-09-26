@@ -10,6 +10,19 @@ class UserService {
       return { msg: error.message || 'Erro ao criar usuário', status: 0 };
     }
   }
+
+  async updateUserService(id, user) {
+    try {
+      // Chama o repositório para atualizar o usuário
+      let operarionPrimise;
+      const userRepository = new UserRepository();
+      operationPrimise = await userRepository.updateUserRepository(id, user);
+      if (!operationPrimise) return { msg: 'Erro ao atualizar usuário', status: 0 };
+      return operationPrimise;
+    } catch (error) {
+      return { msg: error.message || 'Erro ao atualizar usuário', status: 0 };
+    }
+  }
 }
 
 module.exports = UserService;
