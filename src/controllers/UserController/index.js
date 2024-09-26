@@ -14,6 +14,20 @@ class UserController {
       res.status(500).json({ Error: ex.message || 'Erro interno do servidor' });
     }
   }
-}
+
+  async updateUser(req, res) {
+    try {
+      const { id } = req.params;
+      const data = req.body;
+
+      const userService = new UserService();
+
+      const result = await userService.updateUserService(id, data);
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(500).json({ Error: error.message || 'Erro interno do servidor' });
+    }
+  }
+};
 
 module.exports = new UserController();
