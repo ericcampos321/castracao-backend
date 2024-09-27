@@ -55,12 +55,14 @@ class UserRepository {
   // Metodo para buscar um usuário no banco de dados
   async updateUserRepository(id, user) {
     try {
-      if (!mongoose.Types.ObjectId.isValid(id)) return { msg: "ID do usuário inválido", status: 0 }
+      if (!mongoose.Types.ObjectId.isValid(id))
+        return { msg: "ID do usuário inválido", status: 0 }
 
       if (!id) return { msg: "ID do usuário nulo ou indefinido", status: 0 }
 
       let operationPromise;
-      operationPromise = await UserSchema.findOne({ _id: id });
+      operationPromise = await UserSchema.findOne({ _id: id })
+
       if (!operationPromise || operationPromise.length <= 0)
         return { msg: "Usuário não encontrado", status: 0 }
 
@@ -87,7 +89,7 @@ class UserRepository {
                 password: user.password ? user.password : result.password,
                 image: user.image ? user.image : result.image,
                 permissions: user.permissions ? user.permissions : result.permissions,
-              },
+              }
             },
           );
 
@@ -109,6 +111,32 @@ class UserRepository {
       return { msg: error.message || error }
     }
   }
+
+  // Metodo para deletar um usuário no banco de dados
+  async deleteUserRepository(id) {
+    try {
+      if (!mongoose.Types.ObjectId.isValid(id)) return { msg: "ID do usuário inválido", status: 0 };
+
+      let operationPromise;
+
+      operationPromise = await UserSchema.find({ _id: id })
+      if (!operationPromise)
+        return { msg: "Usuário não encontrado", status: 0 }
+
+      operationPromise = await UserSchema.deleteOne({ _id: id })
+      if (!operationPromise)
+        return { msg: "Erro ao deletar usuário", status: 0 }
+
+      return {
+        msg: "Usuário deletado com sucesso",
+        status: 1,
+        data: operationPromise,
+      }
+    } catch (error) {
+      return { msg: error.message || error }
+    }
+  }
+
 };
 
 

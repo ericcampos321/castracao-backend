@@ -13,7 +13,7 @@ class UserService {
 
   async updateUserService(id, user) {
     try {
-      // Chama o repositório para atualizar o usuário
+
       const operationPromise = await UserRepository.updateUserRepository(id, user);
       if (!operationPromise) return { msg: 'Erro ao atualizar usuário', status: 0 };
       return operationPromise;
@@ -21,6 +21,17 @@ class UserService {
       return { msg: error.message || 'Erro ao atualizar usuário', status: 0 };
     }
   }
-}
+
+  async deleteUserService(id) {
+    try {
+
+      const operationPromise = await UserRepository.deleteUserRepository(id);
+      if (!operationPromise) return { msg: 'Erro ao deletar usuário', status: 0 };
+      return operationPromise;
+    } catch (error) {
+      return { msg: error.message || 'Erro ao deletar usuário', status: 0 };
+    }
+  }
+};
 
 module.exports = UserService;
