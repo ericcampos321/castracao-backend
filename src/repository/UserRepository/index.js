@@ -137,6 +137,20 @@ class UserRepository {
     }
   }
 
+  // Metodo para buscar um usuário no banco de dados
+async getUserRepository(id) {
+  try {
+    if(!mongoose.Types.ObjectId.isValid(id)) return { msg: "ID do usuário inválido", status: 0 };
+
+    let operationPromise;
+    
+    operationPromise = await UserSchema.find({ _id: id});
+    if(!operationPromise) return { msg: "Usuário não encontrado", status: 0 };
+  } catch (error) {
+    return { msg: error.message || error };
+  }
+}
+
 };
 
 
