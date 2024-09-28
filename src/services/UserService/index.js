@@ -1,4 +1,5 @@
 const UserRepository = require('../../repository/UserRepository/index');
+const IUser = require('../../models/interface/User');
 
 class UserService {
   async createUser(userData) {
@@ -32,6 +33,18 @@ class UserService {
       return { msg: error.message || 'Erro ao deletar usuário', status: 0 };
     }
   }
+
+  async getUserService(query) {
+    try {
+
+      const operationPromise = await UserRepository.getUserRepository(query);
+      if (!operationPromise) return { msg: 'Erro ao buscar usuário', status: 0 };
+      return operationPromise;
+    } catch (error) {
+      return { msg: error.message || 'Erro ao buscar usuário', status: 0 };
+    }
+  }
+
 };
 
 module.exports = UserService;

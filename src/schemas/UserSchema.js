@@ -19,5 +19,5 @@ const userSchema = new Schema(
   }
 );
 
-userSchema.plugin(mongooseSequence, { inc_field: 'id' });
+userSchema.plugin(mongooseSequence, { inc_field: 'idUser' });
 module.exports = model('User', userSchema)
