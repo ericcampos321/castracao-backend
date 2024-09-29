@@ -16,7 +16,7 @@ const userSchema = new Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 userSchema.plugin(mongooseSequence, { inc_field: 'idUser' });

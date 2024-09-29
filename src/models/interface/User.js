@@ -6,6 +6,7 @@ const IUser = {
   password: String,
   confirmPassword: String,
   image: String,
+  performance: String,
 };
 
 module.exports = IUser
