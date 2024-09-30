@@ -143,7 +143,9 @@ class UserRepository {
 
       if( !idUser ) return { msg: "ID do usuário nulo ou indefinido", status: 0 };
 
-      const operationPromise = await UserSchema.findOne({ idUser: idUser });
+      const operationPromise = await UserSchema.findOne({ idUser: idUser }).populate(
+        'permissions'
+      )
       if (!operationPromise)
         return { msg: "Usuário não encontrado", status: 0 };
 

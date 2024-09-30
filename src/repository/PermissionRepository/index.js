@@ -1,5 +1,5 @@
-import Permission from '../../models/Permission';
-import { IPermission } from '../../models/interface/Permission';
+const Permission = require('../../schemas/PermissionSchema');
+const IPermission = require('../../models/interface/Permission');
 
 class PermissionRepository {
 
@@ -23,4 +23,4 @@ class PermissionRepository {
   }
 };
 
-export default new PermissionRepository()
+module.exports = new PermissionRepository();

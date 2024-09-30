@@ -9,5 +9,5 @@ const IUser = {
   performance: String,
 };
 
-module.exports = IUser
+module.exports = IUser;
 

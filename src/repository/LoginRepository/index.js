@@ -34,7 +34,7 @@ class LoginRepository {
           idUser: result._id,
           token,
           auth: true,
-          /*permission: result.permissions.name_permission,*/
+          permission: result.permissions.name_permission,
         };
       }
     } catch (err) {

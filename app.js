@@ -18,6 +18,8 @@ app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 //Routes
 app.use('/users', require('./src/routes/UserRoutes'));
 app.use('/users', require('./src/routes/LoginRoutes'));
+app.use('/users', require('./src/routes/RolesRoutes'));
+app.use('/users', require('./src/routes/PermissionRoutes'));
 
 
 //Connect to MongoDB

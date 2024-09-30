@@ -1,8 +1,9 @@
+const { model, Schema } = require('mongoose');
+const mongoose = require('mongoose');
 const mongooseSequence = require('mongoose-sequence')(mongoose);
-const IPermission = require('../../models/interface/Permission');
-import mongoose, { model, Schema } from 'mongoose';
+const IPermission = require('../models/interface/Permission');
 
-const permissionSchema = new Schema(
+const Permission = new Schema(
   {
     name_permission: {
       type: String,
@@ -19,5 +20,7 @@ const permissionSchema = new Schema(
   },
 );
 
-permissionSchema.plugin(mongooseSequence(mongoose), { inc_field: 'idPermission' });
-module.exports = model('Permission', permissionSchema);
+Permission.plugin(mongooseSequence, { inc_field: 'idPermission' });
+module.exports = model('Permission', Permission);
+
+
