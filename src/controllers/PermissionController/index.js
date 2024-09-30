@@ -14,6 +14,19 @@ class PermissionController {
       res.status(500).json({ Error: error.message || 'Erro interno do servidor' });
     }
   }
+
+  async insertPermission(req, res) {
+    try {
+      const data = req.body;
+
+      const permissionService = new PermissionService();
+
+      const result = await permissionService.insertPermissionService(data);
+      res.status(200).json(result);
+    } catch (error) {
+      res.status(500).json({ Error: error.message || 'Erro interno do servidor' });
+    }
+  }
 };
 
 module.exports = new PermissionController();

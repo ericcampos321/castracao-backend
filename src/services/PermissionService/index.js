@@ -7,10 +7,21 @@ class PermissionService {
     try {
 
       const operationPromise = await PermissionRepository.getPermissionListRepository(query);
-      if(!operationPromise) return { msg: 'Erro ao buscar permissoes', status: 0 };
+      if (!operationPromise) return { msg: 'Erro ao buscar permissoes', status: 0 };
       return operationPromise;
     } catch (error) {
       return { msg: error.message || 'Erro ao buscar permissoes', status: 0 };
+    }
+  }
+
+  async insertPermissionService(IPermission) {
+    try {
+
+      const operationPromise = await PermissionRepository.insertPermissionRepository(IPermission);
+      if (!operationPromise) return { msg: 'Erro ao criar permissoes', status: 0 };
+      return operationPromise;
+    } catch (error) {
+      return { msg: error.message || 'Erro ao criar permissoes', status: 0 };
     }
   }
 };
