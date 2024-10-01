@@ -13,6 +13,17 @@ class RolesService {
       return { msg: error.message || 'Erro ao buscar roles', status: 0 };
     }
   }
+
+  async insertRolesService(IRoles) {
+
+    try {
+      const operationPromise = await RolesRepository.insertRoleRepository(IRoles);
+      if (!operationPromise) return { msg: 'Erro ao criar roles', status: 0 };
+      return operationPromise;
+    } catch (error) {
+      return { msg: error.message || 'Erro ao criar roles', status: 0 };
+    }
+  }
 };
 
 module.exports = RolesService;

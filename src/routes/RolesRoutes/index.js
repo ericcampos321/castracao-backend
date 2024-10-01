@@ -3,6 +3,7 @@ const router = express.Router();
 
 const RolesController = require('../../controllers/RolesController');
 
-router.get('/roles', RolesController.getRolesList);
+router.get('/getRoles', RolesController.getRolesList);
+router.post('/insertRoles', RolesController.insertRoles);
 
 module.exports = router;
