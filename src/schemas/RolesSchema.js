@@ -1,6 +1,6 @@
 const { model, Schema } = require('mongoose');
 const mongoose = require('mongoose');
-const IRoles = require('../../models/interface/Roles');
+const IRoles = require('../models/interface/Roles');
 const mongooseSequence = require('mongoose-sequence')(mongoose);
 
 const Role = new Schema(
@@ -19,4 +19,4 @@ const Role = new Schema(
 
 
 Role.plugin(mongooseSequence, { inc_field: 'idRole' });
-module.exports = model('Role', Role)
+module.exports = model('Roles', Role)

@@ -7,7 +7,7 @@ class PermissionRepository {
 
     try {
       let operationPromise;
-      operationPromise = await Permission.find(query).populate('permission');
+      operationPromise = await Permission.find(query).populate('permissions');
 
       if (!operationPromise || operationPromise <= 0)
         return { msg: 'Nenhum permissions cadastrada', status: 0 }
@@ -28,10 +28,10 @@ class PermissionRepository {
 
       let operationPromise;
 
-      operationPromise = await Permission.find({ name_permission: IPermission.name_permission,
-       });
-
-      if (!operationPromise || operationPromise >= 1)
+      operationPromise = await Permission.find({
+        name_permission: IPermission.name_permission,
+      });
+      if (!operationPromise || operationPromise.length >= 1)
         return { msg: "Permission ja existe", status: 0 }
 
       operationPromise = await Permission.create(IPermission);

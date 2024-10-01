@@ -1,7 +1,7 @@
 const IPermission = {
   _id: String,
   idPermission: Number,
-  name_Permission: String,
+  name_permission: String,
   permission: [],
 };
 
