@@ -24,6 +24,28 @@ class RolesService {
       return { msg: error.message || 'Erro ao criar roles', status: 0 };
     }
   }
+
+  async updateRolesService(id, IRoles) {
+
+    try {
+      const operationPromise = await RolesRepository.updateRoleRepository(id, IRoles);
+      if (!operationPromise) return { msg: "Erro ao atualizar roles", status: 0 };
+      return operationPromise;
+    } catch (error) {
+      return { msg: error.message || 'Erro ao atualizar roles', status: 0 };
+    }
+  }
+
+  async deleteRolesService(id) {
+    
+    try {
+      const operationPromise = await RolesRepository.deleteRoleRepository(id);
+      if (!operationPromise) return { msg: "Erro ao deletar roles", status: 0 };
+      return operationPromise;
+    } catch (error) {
+      return { msg: error.message || 'Erro ao deletar roles', status: 0 };
+    }
+  }
 };
 
 module.exports = RolesService;
