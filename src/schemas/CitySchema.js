@@ -1,7 +1,8 @@
-const { model, Schema } = require('mongoose');
-const City = require('../models/interface/City');
-const mongoose = require('mongoose');
-const mongooseSequence = require('mongoose-sequence')(mongoose);
+const mongoose = require('mongoose'); 
+const { model, Schema } = mongoose;   
+const ICity = require('../models/interface/City');
+const mongooseSequence = require('mongoose-sequence')(mongoose);  
+
 
 const City = new Schema(
   {

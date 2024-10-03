@@ -1,17 +1,21 @@
-const { default: mongoose } = require("mongoose");
+const mongoose = require('mongoose');
 const ICastration = require("../../models/interface/Castration");
 const Castration = require("../../schemas/CastrationSchema");
 const City = require("../../schemas/CitySchema");
 const moment = require('moment');
-
 class RegisterCastrationRepository {
-
   async insertCadsRepository(ICastration) {
     try {
       if (!ICastration) return { msg: "Castracao undefined or null", status: 0 }
 
       let operationPromise;
       let result;
+
+      const existCastration = await Castration.findOne({ 
+        chiop: ICastration.chip 
+      })
+
+      if(existCastration) return { msg: "Castração ja existente", status: 0 }
 
       if (ICastration.animal.length >= 1) {
         for (const animals of ICastration.animal) {
@@ -26,15 +30,17 @@ class RegisterCastrationRepository {
             cep: ICastration.cep,
             number_residence: ICastration.number_residence,
             bloco: ICastration.bloco,
-            apto: ICastration.apto
+            apto: ICastration.apto,
+            createdAt: moment().format(),
+            updatedAt: moment().format()
           })
 
           if (!operationPromise) return { msg: "Erro ao criar castracao", status: 0 }
           result = operationPromise
         }
 
-        operationPromise = await City.find({ name: ICastration.city.name })
-        if (operationPromise.length <= 0) {
+        operationPromise = await City.findOne({ name: ICastration.city.name })
+        if (!operationPromise) {
           operationPromise = await City.create({
             name: ICastration.city.name,
             code: ICastration.city.code,
@@ -52,8 +58,7 @@ class RegisterCastrationRepository {
       return { msg: error.message || 'Erro interno do servidor', status: 0 }
     }
   }
-
-  async deleteCastationRepository(id) {
+  async deleteCasdsRepository(id) {
 
     try {
       if (!mongoose.Types.ObjectId.isValid(id)) return { msg: "ID do castracao undefined or null", status: 0 }
@@ -73,7 +78,7 @@ class RegisterCastrationRepository {
     }
   }
 
-  async updateCastrationRepository(id, ICastration) {
+  async updateCadsRepository(id, ICastration) {
     try {
       if (!mongoose.Types.ObjectId.isValid(id)) return { msg: "ID da castração inválido ou nulo", status: 0 }
 
@@ -152,7 +157,26 @@ class RegisterCastrationRepository {
     }
   }
 
-  async getCastrationRepository(id, ICastration) {
+  async getCastrationRepository(idCastration) {
+    try {
+      if (!mongoose.Types.ObjectId.isValid(idCastration)) return { msg: "ID da castração inválido ou nulo", status: 0 }
+
+      let operationPromise;
+
+      operationPromise = await Castration.find({ _id: idCastration }).populate("city")
+      if (!operationPromise) return { msg: "Castração inexistente", status: 0 }
+
+      return {
+        msg: "Registro encontrado com sucesso",
+        status: 1,
+        data: operationPromise
+      }
+    } catch (error) {
+      return { msg: error.message || 'Erro interno do servidor', status: 0 } 
+    }
+  }
+
+  async getInfoCastrationRepository(id, ICastration) {
     try {
       if (!mongoose.Types.ObjectId.isValid(id)) return { msg: "ID da castração inválido ou nulo", status: 0 }
 
@@ -199,4 +223,4 @@ class RegisterCastrationRepository {
   }
 }
 
-module.exports = new RegisterCastrationRepository()
+module.exports = RegisterCastrationRepository;
