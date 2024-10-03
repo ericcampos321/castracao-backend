@@ -15,11 +15,15 @@ app.use(express.urlencoded({ extended: false }));
 //Config CORS
 app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 
-//Routes
+//Routes Users
 app.use('/users', require('./src/routes/UserRoutes'));
 app.use('/users', require('./src/routes/LoginRoutes'));
 app.use('/users', require('./src/routes/RolesRoutes'));
 app.use('/users', require('./src/routes/PermissionRoutes'));
+
+//Routes Castration
+app.use('/cads', require('./src/routes/CastrationRoutes'));
+app.use('/city', require('./src/routes/CityRoutes'));
 
 
 //Connect to MongoDB
