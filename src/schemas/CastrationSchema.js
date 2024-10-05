@@ -1,10 +1,10 @@
-const mongoose = require('../db/connect.js');
-const { Schema, model } = mongoose;
-const mongooseSequence = require('mongoose-sequence')(mongoose);
+const mongoose = require('mongoose');
+const { model, Schema } = mongoose;    
+const ICastration = require('../models/interface/Castration');
+const mongooseSequence = require('mongoose-sequence')(mongoose);  
 
 const castrationSchema = new Schema(
   {
-    idC: { type: Number },
     animal: [
       {
         species: { type: String, required: true },
