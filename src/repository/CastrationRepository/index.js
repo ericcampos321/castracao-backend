@@ -100,27 +100,27 @@ class RegisterCastrationRepository {
           { _id: id },
           {
             animal: {
-              species: ICastration.animal[0].species || "",    // Se species não existir, atribui uma string vazia
-              sexy: ICastration.animal[0].sexy || "",          // Mesmo para sexy, e os campos seguintes
-              name: ICastration.animal[0].name || "",
-              color: ICastration.animal[0].color || "",
-              size: ICastration.animal[0].size || "",
-              year: ICastration.animal[0].year || "",
-              chip: ICastration.animal[0].chip || "",
-              intercorrencia: ICastration.animal[0].intercorrencia || "",
-              nis: ICastration.animal[0].nis || "",
-              image: ICastration.animal[0].image || "",
+              species: ICastration.animal[0].species ? ICastration.animal[0].species : "", 
+              sexy: ICastration.animal[0].sexy ? ICastration.animal[0].sexy : "",         
+              name: ICastration.animal[0].name ? ICastration.animal[0].name : "",
+              color: ICastration.animal[0].color ? ICastration.animal[0].color : "",
+              size: ICastration.animal[0].size ? ICastration.animal[0].size : "",
+              year: ICastration.animal[0].year ? ICastration.animal[0].year : "",
+              chip: ICastration.animal[0].chip ? ICastration.animal[0].chip : "",
+              intercorrencia: ICastration.animal[0].intercorrencia ? ICastration.animal[0].intercorrencia : "",
+              nis: ICastration.animal[0].nis ? ICastration.animal[0].nis : "",
+              image: ICastration.animal[0].image ? ICastration.animal[0].image : "",
             },
-            name_tutor: ICastration.name_tutor || "",
-            cpf: ICastration.cpf || "",
-            phone: ICastration.phone || "",
-            city: ICastration.city || "",
-            address: ICastration.address || "",
-            district: ICastration.district || "",
-            cep: ICastration.cep || "",
-            number_residence: ICastration.number_residence || "",
-            bloco: ICastration.bloco || "",
-            apto: ICastration.apto || ""
+            name_tutor: ICastration.name_tutor ? ICastration.name_tutor : "",
+            cpf: ICastration.cpf ? ICastration.cpf : "",
+            phone: ICastration.phone ? ICastration.phone : "",
+            city: ICastration.city ? ICastration.city : "",
+            address: ICastration.address ? ICastration.address : "",
+            district: ICastration.district ? ICastration.district : "",
+            cep: ICastration.cep ? ICastration.cep : "",
+            number_residence: ICastration.number_residence ? ICastration.number_residence : "",
+            bloco: ICastration.bloco ? ICastration.bloco : "",
+            apto: ICastration.apto ? ICastration.apto : "",
           }
         );
 
