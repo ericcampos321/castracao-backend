@@ -12,7 +12,7 @@ const ICastration = {
       chip: String,
       intercorrencia: String,
       nis: String,
-      image: Array
+      image: Array,
     },
   ],
   name_tutor: String,

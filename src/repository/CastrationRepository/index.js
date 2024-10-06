@@ -12,7 +12,7 @@ class RegisterCastrationRepository {
       let result;
 
       const existCastration = await Castration.findOne({ 
-        chiop: ICastration.chip 
+        chip: ICastration.chip 
       })
 
       if(existCastration) return { msg: "Castração ja existente", status: 0 }
@@ -91,7 +91,7 @@ class RegisterCastrationRepository {
       if (!operationPromise || operationPromise.length <= 0) return { msg: "Castração inexistente", status: 0 }
 
       // Define a variável 'result' com o valor encontrado ou null
-      const result = operationPromise ?? null;
+      const result = operationPromise ? operationPromise : null;
 
       // Se a castração foi encontrada (result não é null), prossegue com a atualização
       if (result) {
