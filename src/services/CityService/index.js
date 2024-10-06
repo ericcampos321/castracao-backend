@@ -15,12 +15,12 @@ class CityService {
     }
   }
 
-  getCityService(id) {
+  getCityService(query) {
     try {
       let operationPromise;
 
       let cityRepository = new CityRepository();
-      operationPromise = cityRepository.getCityRepository(id);
+      operationPromise = cityRepository.getCityRepository(query);
       return operationPromise
     } catch (error) {
       return { msg: error.message || error }

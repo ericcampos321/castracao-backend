@@ -33,13 +33,13 @@ class CityRepository {
     }
   }
 
-  async getCityRepository(id) {
+  async getCityRepository(idCity) {
     try {
-      if (!mongoose.Types.ObjectId.isValid(id)) return { msg: "ID da city inválido ou nulo", status: 0 }
+      if (!mongoose.Types.ObjectId.isValid(idCity)) return { msg: "ID da city undefined or null", status: 0 }
 
       let operationPromise;
 
-      operationPromise = await City.find({ _id: id })
+      operationPromise = await City.findOne({ _id: idCity })
       if (!operationPromise) return { msg: "Cidade inexistente", status: 0 }
 
       return {
@@ -57,6 +57,9 @@ class CityRepository {
       if (!mongoose.Types.ObjectId.isValid(id)) return { msg: "ID da city undefined or null", status: 0 }
 
       let operationPromise;
+
+      operationPromise = await City.findOne({ _id: id })
+      if (!operationPromise || operationPrimise.length <= 0) return { msg: "Cidade inexistente", status: 0 }
 
       operationPromise = await City.deleteOne({ _id: id })
       if (!operationPromise) return { msg: "Erro ao deletar Cidade", status: 0 }
@@ -103,4 +106,4 @@ class CityRepository {
   }
 }
 
-module.exports = new CityRepository()
+module.exports = CityRepository;
