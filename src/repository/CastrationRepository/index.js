@@ -11,11 +11,11 @@ class RegisterCastrationRepository {
       let operationPromise;
       let result;
 
-      const existCastration = await Castration.findOne({ 
-        chip: ICastration.chip 
+      const existCastration = await Castration.findOne({
+        chip: ICastration.chip
       })
 
-      if(existCastration) return { msg: "Castração ja existente", status: 0 }
+      if (existCastration) return { msg: "Castração ja existente", status: 0 }
 
       if (ICastration.animal.length >= 1) {
         for (const animals of ICastration.animal) {
@@ -59,11 +59,13 @@ class RegisterCastrationRepository {
     }
   }
   async deleteCasdsRepository(id) {
-
     try {
       if (!mongoose.Types.ObjectId.isValid(id)) return { msg: "ID do castracao undefined or null", status: 0 }
 
       let operationPromise;
+
+      operationPromise = await Castration.findOne({ _id: id })
+      if (!operationPromise || operationPrimise.length <= 0) return { msg: "Castracao inexistente", status: 0 }
 
       operationPromise = await Castration.deleteOne({ _id: id })
       if (!operationPromise) return { msg: "Erro ao deletar castracao", status: 0 }
@@ -100,8 +102,8 @@ class RegisterCastrationRepository {
           { _id: id },
           {
             animal: {
-              species: ICastration.animal[0].species ? ICastration.animal[0].species : "", 
-              sexy: ICastration.animal[0].sexy ? ICastration.animal[0].sexy : "",         
+              species: ICastration.animal[0].species ? ICastration.animal[0].species : "",
+              sexy: ICastration.animal[0].sexy ? ICastration.animal[0].sexy : "",
               name: ICastration.animal[0].name ? ICastration.animal[0].name : "",
               color: ICastration.animal[0].color ? ICastration.animal[0].color : "",
               size: ICastration.animal[0].size ? ICastration.animal[0].size : "",
@@ -156,7 +158,7 @@ class RegisterCastrationRepository {
       return { msg: error.message || 'Erro interno do servidor', status: 0 }
     }
   }
-
+  
   async getCastrationRepository(idCastration) {
     try {
       if (!mongoose.Types.ObjectId.isValid(idCastration)) return { msg: "ID da castração inválido ou nulo", status: 0 }
@@ -172,7 +174,7 @@ class RegisterCastrationRepository {
         data: operationPromise
       }
     } catch (error) {
-      return { msg: error.message || 'Erro interno do servidor', status: 0 } 
+      return { msg: error.message || 'Erro interno do servidor', status: 0 }
     }
   }
 
