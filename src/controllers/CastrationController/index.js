@@ -16,15 +16,16 @@ class CastrationController {
 
   async getCads(req, res) {
     try {
-      const query = req.query;
+      const { idCastration } = req.params;
 
       const cadsService = new CastrationService();
-      const result = await cadsService.getCadsListService(query);
+      const result = await cadsService.getCadsService(idCastration);
       res.status(200).json(result);
     } catch (error) {
       res.status(500).json({ Error: error.message || 'Erro interno do servidor' });
     }
   }
+
 
   async updateCads(req, res) {
     try {

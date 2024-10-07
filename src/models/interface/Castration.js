@@ -1,6 +1,6 @@
 const ICastration = {
   _id: String,
-  idCastration: Number,
+  idC: Number,
   animal: [
     {
       species: String,

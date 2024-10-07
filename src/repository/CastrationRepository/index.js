@@ -159,13 +159,11 @@ class RegisterCastrationRepository {
     }
   }
   
-  async getCastrationRepository(idCastration) {
+  async getCastrationRepository(idC) {
     try {
-      if (!mongoose.Types.ObjectId.isValid(idCastration)) return { msg: "ID da castração inválido ou nulo", status: 0 }
-
       let operationPromise;
 
-      operationPromise = await Castration.find({ _id: idCastration }).populate("city")
+      operationPromise = await Castration.findOne({ idC: idC }).populate("city")
       if (!operationPromise) return { msg: "Castração inexistente", status: 0 }
 
       return {

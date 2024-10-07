@@ -17,13 +17,13 @@ class CastrationService {
     }
   }
 
-  async getCadsService(idCastration) {
+  async getCadsService(query) {
     try {
       let operationPrimise;
 
       const cadsRepository = new RegisterCastrationRepository();
 
-      operationPrimise = await cadsRepository.getCastrationRepository(idCastration);
+      operationPrimise = await cadsRepository.getCastrationRepository(query);
       if (!operationPrimise) return { msg: "Castracao inexistente", status: 0 }
       return operationPrimise;
     } catch (error) {

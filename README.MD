@@ -4,6 +4,8 @@
 
 O Projeto de Castração de Animais é uma plataforma dedicada a ajudar abrigos e a comunidade a registrar e gerenciar o processo de castração de animais. O objetivo é facilitar o agendamento e o acompanhamento das castrações, garantindo um manejo responsável e humanitário para os animais.
 
+**Nota:** Devido à natureza confidencial de algumas partes do projeto, certos componentes e funcionalidades não estarão disponíveis no repositório público, pois fazem parte de entregas personalizadas para o cliente.
+
 ## Tecnologias Utilizadas
 
 - **Frontend**: React.js, HTML, CSS, JavaScript
