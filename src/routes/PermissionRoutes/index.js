@@ -3,7 +3,7 @@ const router = express.Router();
 
 const PermissionController = require('../../controllers/PermissionController');
 
-router.get('/permissionList', PermissionController.getPermissionList);
+router.get('/permissionGet', PermissionController.getPermissionList);
 router.post('/permissionInsert', PermissionController.insertPermission);
 router.delete('/permissionDelete/:id', PermissionController.deletePermission);
 router.patch('/permissionUpdate/:id', PermissionController.updatePermission);

@@ -29,9 +29,11 @@ class CityService {
 
   async deleteCityService(id) {
     try {
-      let cityRepository = new CityRepository();
+      let operationPrimise;
 
-      return await cityRepository.deleteCityRepository(id)
+      const cityRepository = new CityRepository();
+      operationPrimise = await cityRepository.deleteCityRepository(id);
+      return perationPrimise
     } catch (error) {
       return { msg: error.message || error }
     }
@@ -39,9 +41,11 @@ class CityService {
 
   async updateCityService(idCity) {
     try {
-      let cityRepository = new CityRepository();
+      let operationPrimise;
 
-      return await cityRepository.updateCityRepository(idCity)
+      const cityRepository = new CityRepository();
+      operationPrimise = await cityRepository.updateCityRepository(idCity);
+      return operationPrimise;
     } catch (error) {
       return { msg: error.message || error }
     }
