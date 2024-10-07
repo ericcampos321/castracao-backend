@@ -33,7 +33,7 @@ class CityService {
 
       const cityRepository = new CityRepository();
       operationPrimise = await cityRepository.deleteCityRepository(id);
-      return operationPrimise
+      return perationPrimise
     } catch (error) {
       return { msg: error.message || error }
     }
