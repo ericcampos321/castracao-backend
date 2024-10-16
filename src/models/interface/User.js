@@ -4,9 +4,7 @@ const IUser = {
   name: String,
   email: String,
   password: String,
-  confirmPassword: String,
-  image: String,
-  performance: String,
+  permissions: String,
 };
 
 module.exports = IUser;

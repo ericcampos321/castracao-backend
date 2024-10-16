@@ -9,7 +9,7 @@ class LoginController {
 
       const result = await loginService.loginService(data);
 
-      return res.status(result.status === 1 ? 200 : 400).json(result);
+      return res.status(200).json(result);
     } catch (error) {
       return res.status(400).json({ msg: error.message || error });
     }
