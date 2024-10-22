@@ -10,9 +10,11 @@ class RegisterCastrationRepository {
 
       let operationPromise;
       let result;
-
+ 
       const existCastration = await Castration.findOne({
         chip: ICastration.chip
+      const existCastration = await Castration.findOne({ 
+        chip: ICastration.chip 
       })
 
       if (existCastration) return { msg: "Castração ja existente", status: 0 }
@@ -101,9 +103,12 @@ class RegisterCastrationRepository {
         operationPromise = await Castration.findOneAndUpdate(
           { _id: id },
           {
-            animal: {
+            animal: { 
               species: ICastration.animal[0].species ? ICastration.animal[0].species : "",
               sexy: ICastration.animal[0].sexy ? ICastration.animal[0].sexy : "",
+              species: ICastration.animal[0].species ? ICastration.animal[0].species : "", 
+              sexy: ICastration.animal[0].sexy ? ICastration.animal[0].sexy : "",         
+
               name: ICastration.animal[0].name ? ICastration.animal[0].name : "",
               color: ICastration.animal[0].color ? ICastration.animal[0].color : "",
               size: ICastration.animal[0].size ? ICastration.animal[0].size : "",
