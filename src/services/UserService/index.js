@@ -2,6 +2,19 @@ const UserRepository = require('../../repository/UserRepository/index');
 const IUser = require('../../models/interface/User');
 
 class UserService {
+  async getUserListService(query, limit, skip) {
+    try {
+      let operationPromise;
+
+      const userRepository = new UserRepository();
+
+      operationPromise = await userRepository.getUserListRepository(query, limit, skip);
+      return operationPromise;
+    } catch (error) {
+      return { msg: error.message || 'Erro ao buscar usuários', status: 0 };
+    }
+  }
+
   async createUser(userData) {
     try {
       // Chama o repositório para inserir o usuário

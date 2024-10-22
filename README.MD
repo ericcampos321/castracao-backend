@@ -13,7 +13,7 @@ O Projeto de Castração de Animais é uma plataforma dedicada a ajudar abrigos 
 - **Banco de Dados**: MongoDB
 - **Autenticação**: JWT (JSON Web Tokens)
 - **Versionamento de Código**: Git, GitHub
-- **Arquitetura**: (MVC, AOO)
+- **Arquitetura**: (MVC, Layered Architecture)
 
 ## Funcionalidades
 

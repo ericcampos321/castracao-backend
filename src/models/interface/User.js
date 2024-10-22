@@ -4,8 +4,17 @@ const IUser = {
   name: String,
   email: String,
   password: String,
+  confirmPassword: String,
+  image: String,
   permissions: String,
 };
 
-module.exports = IUser;
+const IUserFilter = {
+  filter: {
+    name: String,
+    email: String,
+  }
+};
+
+module.exports = IUser, IUserFilter;
 

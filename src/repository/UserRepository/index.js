@@ -13,6 +13,45 @@ class UserRepository {
     return bcrypt.hashSync(password, saltRounds);
   }
 
+  // Metodo para buscar um usuário no banco de dados lista
+  async getUserListRepository(query, limit, skip) {
+    try {
+      let operationPromise;
+      const filter = filterFormat(query);
+      let users;
+
+      if (filter) {
+        operationPromise = await UserSchema.find(filter)
+          .limit(limit)
+          .skip(skip)
+          .populate('permissions', 'name_permissions');
+
+        if (!operationPromise || operationPromise.length <= 0) {
+          return { msg: "Nenhum usuário encontrado", status: 0 };
+        }
+        users = operationPromise ? operationPromise : null;
+      } else {
+        operationPromise = await UserSchema.find();
+        if (!operationPromise || operationPromise.length <= 0) {
+          return { msg: "Nenhum usuário encontrado", status: 0 };
+        }
+        const totalUsers = operationPromise.length;
+
+        const columns = ["Ações", "Número", "Nome", "Email", "Tipo de Usúario"];
+
+        return {
+          msg: "Usúarios cadastrados",
+          status: 1,
+          data: users,
+          columns: columns,
+          total: totalUsers,
+        };
+      }
+    } catch (error) {
+      return { msg: error.message || error };
+    }
+  }
+
   // Método para inserir um usuário no banco de dados
   async insertUserRepository(user) {
     try {
@@ -136,7 +175,7 @@ class UserRepository {
   async getUserRepository(idUser) {
     try {
 
-      if( !idUser ) return { msg: "ID do usuário nulo ou indefinido", status: 0 };
+      if (!idUser) return { msg: "ID do usuário nulo ou indefinido", status: 0 };
 
       const operationPromise = await UserSchema.findOne({ idUser: idUser }).populate(
         'permissions'
@@ -152,6 +191,19 @@ class UserRepository {
     } catch (error) {
       return { msg: error.message || error };
     }
+  }
+
+  filterFormat(query) {
+    const filter = {};
+    if (query.filter.name || query.filter.email) {
+      filter= {
+        $and:[
+          query.filter.name ? { name: query.filter.name } : {},
+          query.filter.email ? { email: query.filter.email } : {},
+        ],
+      };
+    }
+    return filter;
   }
 
 };
