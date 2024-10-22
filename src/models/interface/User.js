@@ -6,8 +6,15 @@ const IUser = {
   password: String,
   confirmPassword: String,
   image: String,
-  performance: String,
+  permissions: String,
 };
 
-module.exports = IUser;
+const IUserFilter = {
+  filter: {
+    name: String,
+    email: String,
+  }
+};
+
+module.exports = IUser, IUserFilter;
 
