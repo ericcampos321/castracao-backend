@@ -11,8 +11,7 @@ class RegisterCastrationRepository {
       let operationPromise;
       let result;
  
-      const existCastration = await Castration.findOne({
-        chip: ICastration.chip
+    
       const existCastration = await Castration.findOne({ 
         chip: ICastration.chip 
       })

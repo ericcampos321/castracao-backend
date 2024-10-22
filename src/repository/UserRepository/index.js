@@ -55,12 +55,8 @@ class UserRepository {
   // Método para inserir um usuário no banco de dados
   async insertUserRepository(user) {
     try {
-      if (!user || !user.password || !user.confirmpassword) {
+      if (!user || !user.password) {
         return { msg: "Parâmetros de usuário ou senha estão indefinidos ou nulos", status: 0 };
-      }
-
-      if (user.password !== user.confirmpassword) {
-        return { msg: "As senhas informadas não coincidem", status: 0 };
       }
 
       let operationPromise;
@@ -73,7 +69,6 @@ class UserRepository {
 
       // Faz o hash da senha antes de salvar o usuário
       user.password = this._hashPassword(user.password);
-      user.confirmpassword = this._hashPassword(user.confirmpassword);
 
       // Cria o novo usuário
       operationPromise = await UserSchema.create(user);
