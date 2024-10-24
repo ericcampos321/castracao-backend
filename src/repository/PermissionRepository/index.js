@@ -14,7 +14,7 @@ class PermissionRepository {
         return { msg: 'Nenhum permissions cadastrada', status: 0 }
 
       return {
-        msg: "permissions cadastrada com sucesso ",
+        msg: "Search Sucessful ",
         status: 1,
         data: operationPromise,
       }
