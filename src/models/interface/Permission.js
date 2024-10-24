@@ -2,7 +2,7 @@ const IPermission = {
   _id: String,
   idPermission: Number,
   name_permission: String,
-  permission: [],
+  permissions: [],
 };
 
 module.exports = IPermission;

@@ -1,15 +1,13 @@
 const UserRepository = require('../../repository/UserRepository/index');
 const IUser = require('../../models/interface/User');
+const IUserFilter = require('../../models/interface/User');
 
 class UserService {
-  async getUserListService(query, limit, skip) {
+  async getUserListService(filter, limit, skip) {
     try {
-      let operationPromise;
-
-      const userRepository = new UserRepository();
-
-      operationPromise = await userRepository.getUserListRepository(query, limit, skip);
-      return operationPromise;
+     
+     const result = await UserRepository.getUserListRepository(filter, limit, skip,);
+      return result;
     } catch (error) {
       return { msg: error.message || 'Erro ao buscar usuários', status: 0 };
     }

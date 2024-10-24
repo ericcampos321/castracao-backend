@@ -16,5 +16,5 @@ const IUserFilter = {
   }
 };
 
-module.exports = IUser, IUserFilter;
+module.exports = { IUser, IUserFilter };
 
