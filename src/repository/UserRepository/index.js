@@ -26,7 +26,7 @@ class UserRepository {
       if (filter) {
         operationPromise = await UserSchema.find(filter)
           .limit(limit)
-          .skip(skip)
+          .skip(0)
           .populate('permissions', 'name_permission');
 
 
@@ -55,6 +55,7 @@ class UserRepository {
           data: users,
           columns: columns,
           total: totalUsers,
+          totalFilter: totalUsers,
         };
     } catch (error) {
       return { msg: error.message || error };
