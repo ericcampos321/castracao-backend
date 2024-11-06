@@ -102,8 +102,6 @@ class UserRepository {
   // Metodo para buscar um usuário no banco de dados
   async updateUserRepository(id, user) {
     try {
-      if (!mongoose.Types.ObjectId.isValid(id))
-        return { msg: "ID do usuário inválido", status: 0 }
 
       if (!id) return { msg: "ID do usuário nulo ou indefinido", status: 0 }
 

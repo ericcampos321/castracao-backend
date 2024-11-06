@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { Schema, model } = mongoose;
+const IUser = require('../models/interface/User');
 const mongooseSequence = require('mongoose-sequence')(mongoose);
 
 const userSchema = new Schema(
@@ -8,7 +9,7 @@ const userSchema = new Schema(
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     permissions: {
-      type: mongoose.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'Permissions'
     },
   },
