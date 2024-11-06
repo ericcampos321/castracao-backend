@@ -22,6 +22,8 @@ class UserRepository {
 
       const filter = this.filterFormat(query);
       let users;
+      let totalFilterResult = 0;
+
 
       if (filter) {
         operationPromise = await UserSchema.find(filter)
@@ -34,6 +36,7 @@ class UserRepository {
           return { msg: "Nenhum usuário encontrado", status: 0 };
         }
         users = operationPromise ? operationPromise : null;
+        totalFilterResult = operationPromise.length;
       } else {
         operationPromise = await UserSchema.find({})
         .populate("permissions", "name_permission")
