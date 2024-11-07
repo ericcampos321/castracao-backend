@@ -7,6 +7,6 @@ router.post('/userList/:limit/:skip', UserController.getUserList);
 router.post('/register', UserController.createUser);
 router.put('/updateUser/:id', UserController.updateUser);
 router.delete('/userDelete/:id', UserController.deleteUser);
-router.get('/get/:idUser', UserController.getUser);
+router.get('/get/:id', UserController.getUser);
 
 module.exports = router;

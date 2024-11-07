@@ -102,7 +102,6 @@ class UserRepository {
   // Metodo para buscar um usuário no banco de dados
   async updateUserRepository(id, user) {
     try {
-
       if (!id) return { msg: "ID do usuário nulo ou indefinido", status: 0 }
 
       let operationPromise;
@@ -188,7 +187,7 @@ class UserRepository {
 
       if (!idUser) return { msg: "ID do usuário nulo ou indefinido", status: 0 };
 
-      const operationPromise = await UserSchema.findOne({ idUser: idUser }).populate(
+      const operationPromise = await UserSchema.findOne({ _id: idUser }).populate(
         'permissions'
       )
       if (!operationPromise)
