@@ -10,13 +10,6 @@ class RegisterCastrationRepository {
 
       let operationPromise;
       let result;
- 
-    
-      const existCastration = await Castration.findOne({ 
-        chip: ICastration.chip 
-      })
-
-      if (existCastration) return { msg: "Castração ja existente", status: 0 }
 
       if (ICastration.animal.length >= 1) {
         for (const animals of ICastration.animal) {

@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const UserSchema = require('../../schemas/UserSchema');
 const IUser = require('../../models/interface/User');
+const IUserFilter = require('../../models/interface/User');
 
 class UserRepository {
   // Método privado para hash da senha
@@ -15,27 +16,39 @@ class UserRepository {
 
   // Metodo para buscar um usuário no banco de dados lista
   async getUserListRepository(query, limit, skip) {
+ 
     try {
       let operationPromise;
-      const filter = filterFormat(query);
+
+      const filter = this.filterFormat(query);
       let users;
+      let totalFilterResult = 0;
+
 
       if (filter) {
         operationPromise = await UserSchema.find(filter)
           .limit(limit)
-          .skip(skip)
-          .populate('permissions', 'name_permissions');
+          .skip(0)
+          .populate('permissions', 'name_permission');
+
 
         if (!operationPromise || operationPromise.length <= 0) {
           return { msg: "Nenhum usuário encontrado", status: 0 };
         }
         users = operationPromise ? operationPromise : null;
+        totalFilterResult = operationPromise.length;
       } else {
-        operationPromise = await UserSchema.find();
+        operationPromise = await UserSchema.find({})
+        .populate("permissions", "name_permission")
+        .skip(skip)
+        .limit(limit)
         if (!operationPromise || operationPromise.length <= 0) {
           return { msg: "Nenhum usuário encontrado", status: 0 };
         }
-        const totalUsers = operationPromise.length;
+        users = operationPromise ? operationPromise : null;
+      }
+
+      const totalUsers = operationPromise.length;
 
         const columns = ["Ações", "Número", "Nome", "Email", "Tipo de Usúario"];
 
@@ -45,8 +58,8 @@ class UserRepository {
           data: users,
           columns: columns,
           total: totalUsers,
+          totalFilter: totalUsers,
         };
-      }
     } catch (error) {
       return { msg: error.message || error };
     }
@@ -89,9 +102,6 @@ class UserRepository {
   // Metodo para buscar um usuário no banco de dados
   async updateUserRepository(id, user) {
     try {
-      if (!mongoose.Types.ObjectId.isValid(id))
-        return { msg: "ID do usuário inválido", status: 0 }
-
       if (!id) return { msg: "ID do usuário nulo ou indefinido", status: 0 }
 
       let operationPromise;
@@ -177,7 +187,7 @@ class UserRepository {
 
       if (!idUser) return { msg: "ID do usuário nulo ou indefinido", status: 0 };
 
-      const operationPromise = await UserSchema.findOne({ idUser: idUser }).populate(
+      const operationPromise = await UserSchema.findOne({ _id: idUser }).populate(
         'permissions'
       )
       if (!operationPromise)
@@ -194,12 +204,12 @@ class UserRepository {
   }
 
   filterFormat(query) {
-    const filter = {};
+    let filter = {};
     if (query.filter.name || query.filter.email) {
-      filter= {
-        $and:[
-          query.filter.name ? { name: query.filter.name } : {},
-          query.filter.email ? { email: query.filter.email } : {},
+      filter = {
+        $and: [
+          query.filter.name ? { name: query.filter.name } : {}, 
+          query.filter.email ? { email: query.filter.email } : {}
         ],
       };
     }
