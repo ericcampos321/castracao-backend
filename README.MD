@@ -1,5 +1,7 @@
 # Projeto de Castração de Animais
 
+<img align="center" alt="" src="arcadafe.png">
+
 ## Descrição
 
 O Projeto de Castração de Animais é uma plataforma dedicada a ajudar abrigos e a comunidade a registrar e gerenciar o processo de castração de animais. O objetivo é facilitar o agendamento e o acompanhamento das castrações, garantindo um manejo responsável e humanitário para os animais.
